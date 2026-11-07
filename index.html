@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lunaro Games: hand-drawn action games for Android</title>
+<meta name="description" content="Lunaro makes fast, hand-drawn action games for Android. Play SkyStrike Arena, the free jetpack army shooter, on Google Play.">
+<meta name="theme-color" content="#091427">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta property="og:title" content="Lunaro Games">
+<meta property="og:description" content="Hand-drawn action games for Android. Play SkyStrike Arena, free on Google Play.">
+<meta property="og:image" content="https://gameslunaro-create.github.io/assets/hero.jpg">
+<meta property="og:url" content="https://gameslunaro-create.github.io/">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  /* The Lunaro palette (docs/BRAND_KIT.md): the final icon's navy and gold, moon-white text. */
+  :root {
+    --navy-deep: #091427; --navy: #12264E; --panel: #0E1C3B; --line: #1F3563;
+    --moon: #ECF0F6; --grey: #B0BACA; --gold: #F1BC59; --gold-light: #FAD483; --gold-deep: #E1A646;
+    --max: 1120px; --gutter: 16px; --radius: 14px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    margin: 0; background: var(--navy-deep); color: var(--grey);
+    font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+  a { color: var(--moon); }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
+  img { max-width: 100%; height: auto; display: block; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+  h1, h2, h3 { color: var(--moon); line-height: 1.15; margin: 0 0 .5em; letter-spacing: .01em; }
+  h2 { font-size: clamp(1.6rem, 4vw, 2.3rem); }
+  .eyebrow { color: var(--gold); font-weight: 700; letter-spacing: .14em; text-transform: uppercase; font-size: .8rem; margin: 0 0 .6em; }
+
+  /* Navigation */
+  header.top { position: absolute; inset: 0 0 auto 0; z-index: 2; }
+  header.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .brand img { width: 36px; height: 36px; border-radius: 8px; }
+  .brand span { color: var(--gold); font-weight: 800; letter-spacing: .12em; font-size: .95rem; }
+  nav a { color: var(--grey); text-decoration: none; margin-left: 18px; font-size: .95rem; }
+  nav a:hover { color: var(--moon); }
+  @media (max-width: 520px) { nav a.hide-sm { display: none; } }
+
+  /* Hero */
+  .hero {
+    position: relative; min-height: min(92vh, 760px); display: flex; align-items: center;
+    background: var(--navy-deep) url("assets/hero.jpg") 70% 40% / cover no-repeat;
+  }
+  .hero::after { content: ""; position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(9,20,39,.86) 0%, rgba(9,20,39,.55) 45%, rgba(9,20,39,0) 75%); }
+  .hero .wrap { position: relative; z-index: 1; width: 100%; padding-top: 90px; padding-bottom: 60px; }
+  .hero .logo { width: min(520px, 86vw); height: auto; margin-bottom: 18px; filter: drop-shadow(0 6px 14px rgba(0,0,0,.45)); }
+  .rule { display: flex; gap: 6px; margin: 0 0 22px; }
+  .rule i { height: 6px; width: 110px; background: var(--gold); border-radius: 2px; }
+  .rule i + i { width: 26px; background: var(--gold-light); }
+  .hero p.lead { color: var(--moon); font-size: clamp(1.15rem, 2.6vw, 1.45rem); max-width: 34ch; margin: 0 0 28px; }
+  .ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+  .play-badge img { height: 58px; width: auto; }
+  .btn-ghost { display: inline-flex; align-items: center; gap: 8px; color: var(--moon); text-decoration: none;
+    border: 1.5px solid rgba(236,240,246,.45); padding: 11px 18px; border-radius: 10px; font-weight: 600; }
+  .btn-ghost:hover { border-color: var(--moon); }
+  @media (max-width: 640px) { .hero { background-position: 78% 30%; }
+    .hero::after { background: linear-gradient(180deg, rgba(9,20,39,.35), rgba(9,20,39,.88) 70%); } }
+
+  section { padding: 72px 0; }
+
+  /* The game */
+  .game { display: grid; gap: 28px; grid-template-columns: 1fr; align-items: start; }
+  @media (min-width: 900px) { .game { grid-template-columns: 1.05fr 1fr; gap: 44px; } }
+  .game-head { display: flex; align-items: center; gap: 16px; margin-bottom: 14px; }
+  .game-head img { width: 76px; height: 76px; border-radius: 18px; box-shadow: 0 6px 18px rgba(0,0,0,.4); }
+  .game-head h3 { font-size: 1.7rem; margin: 0; }
+  .game-head p { margin: 0; color: var(--grey); font-size: .95rem; }
+  .features { list-style: none; padding: 0; margin: 18px 0 24px; display: grid; gap: 10px; }
+  .features li { padding-left: 22px; position: relative; }
+  .features li::before { content: ""; position: absolute; left: 0; top: .62em; width: 10px; height: 10px;
+    border-radius: 2px; background: var(--gold); transform: rotate(45deg); }
+  .features b { color: var(--moon); }
+
+  /* Screenshots: a swipeable strip */
+  .shots { display: grid; grid-auto-flow: column; grid-auto-columns: min(86%, 560px); gap: 12px;
+    overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 10px; -webkit-overflow-scrolling: touch;
+    scrollbar-color: var(--line) transparent; }
+  .shots figure { margin: 0; scroll-snap-align: start; }
+  .shots img { border-radius: 10px; border: 1px solid var(--line); aspect-ratio: 16 / 9; object-fit: cover; width: 100%; }
+  .shots figcaption { font-size: .85rem; margin-top: 6px; }
+
+  /* The trailer, loaded only when played (no YouTube request before that) */
+  .trailer { position: relative; aspect-ratio: 16 / 9; border-radius: var(--radius); overflow: hidden;
+    border: 1px solid var(--line); background: #000; }
+  .trailer button { all: unset; cursor: pointer; position: absolute; inset: 0; display: grid; place-items: center; }
+  .trailer button img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .8; }
+  .trailer .play { position: relative; width: 84px; height: 84px; border-radius: 50%; background: var(--gold);
+    display: grid; place-items: center; box-shadow: 0 8px 30px rgba(0,0,0,.5); }
+  .trailer .play::after { content: ""; border-left: 26px solid var(--navy-deep); border-top: 16px solid transparent;
+    border-bottom: 16px solid transparent; margin-left: 6px; }
+  .trailer .label { position: absolute; bottom: 14px; left: 16px; color: var(--moon); font-weight: 600;
+    text-shadow: 0 2px 6px rgba(0,0,0,.8); }
+  .trailer iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+  /* Updates */
+  .cards { display: grid; gap: 16px; grid-template-columns: 1fr; }
+  @media (min-width: 760px) { .cards { grid-template-columns: 1fr 1fr; } }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; }
+  .card h3 { font-size: 1.15rem; margin-bottom: .3em; }
+  .card .when { color: var(--gold); font-size: .82rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+  .card p { margin: .4em 0 0; }
+
+  /* About + footer */
+  .about { max-width: 68ch; }
+  footer { border-top: 1px solid var(--line); padding: 36px 0 44px; font-size: .92rem; }
+  footer .cols { display: grid; gap: 20px; grid-template-columns: 1fr; }
+  @media (min-width: 760px) { footer .cols { grid-template-columns: 1.4fr 1fr 1fr; } }
+  footer h4 { color: var(--moon); margin: 0 0 8px; font-size: .95rem; }
+  footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  footer a { color: var(--grey); }
+  footer a:hover { color: var(--moon); }
+  .fine { margin-top: 26px; font-size: .82rem; color: #7F8BA3; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Lunaro Games, home">
+      <img src="assets/lunaro_icon.png" alt="" width="36" height="36"><span>LUNARO</span>
+    </a>
+    <nav aria-label="Main">
+      <a href="#games">Games</a>
+      <a href="#updates" class="hide-sm">Updates</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap">
+      <h1 id="hero-title" style="margin:0 0 26px"><img class="logo" src="assets/lunaro_wordmark.png" alt="Lunaro Games" width="1200" height="275"></h1>
+      <p class="lead">Hand-drawn action games for Android, built for your thumbs.</p>
+      <div class="ctas">
+        <a class="play-badge" href="https://play.google.com/store/apps/details?id=com.lunaro.skystrikearena" rel="noopener">
+          <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+               alt="Get SkyStrike Arena on Google Play" width="174" height="58" style="height:58px;width:auto;margin:-9px -11px">
+        </a>
+        <a class="btn-ghost" href="#trailer">&#9654;&nbsp; Watch the trailer</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="games" aria-labelledby="games-title">
+    <div class="wrap">
+      <p class="eyebrow">Our game</p>
+      <h2 id="games-title">SkyStrike Arena</h2>
+      <div class="game">
+        <div>
+          <div class="game-head">
+            <img src="assets/skystrike_icon.png" alt="SkyStrike Arena icon" width="76" height="76">
+            <div><h3>Jetpack army shooter</h3><p>Free on Google Play · Android</p></div>
+          </div>
+          <p>Lead Captain Arjun Rana, call sign SHIKRA, and the Sky Strike Force against Black Hydra, a ruthless
+            mercenary army. Fly, slide, dive and fight across hand-drawn battlefields with your squad.</p>
+          <ul class="features">
+            <li><b>11 story missions in 3 acts</b>, from the Himalayan frontier to the Meghvan jungle and the IRONCLAD boss.</li>
+            <li><b>4 Special Ops and Sniper Ops</b>, including a night surgical strike through night vision.</li>
+            <li><b>Your soldier, your way:</b> 19 uniforms and the Garud Armory's weapons, finishes and attachments.</li>
+            <li><b>Multiplayer</b> on the same Wi-Fi or online with a room code; the story plays offline.</li>
+          </ul>
+          <a class="play-badge" href="https://play.google.com/store/apps/details?id=com.lunaro.skystrikearena" rel="noopener">
+            <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+                 alt="Get it on Google Play" width="174" height="58" style="height:58px;width:auto;margin:-9px -11px">
+          </a>
+        </div>
+        <div id="trailer">
+          <div class="trailer" data-video="ez9tKzXp598">
+            <button type="button" aria-label="Play the Act 3 trailer (loads YouTube)">
+              <img src="assets/shot_03_meghvan_jungle.jpg" alt="" loading="lazy">
+              <span class="play" aria-hidden="true"></span>
+              <span class="label">Act 3 trailer · plays from YouTube</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="shots" role="region" aria-label="Screenshots, swipe for more" tabindex="0" style="margin-top:36px">
+        <figure><img src="assets/shot_01_garud_armory.jpg" alt="The Garud Armory: choosing the Vayu SMG and its finishes" loading="lazy" width="1280" height="720"><figcaption>The Garud Armory</figcaption></figure>
+        <figure><img src="assets/shot_02_uniforms.jpg" alt="The uniform editor with woodland camouflage" loading="lazy" width="1280" height="720"><figcaption>19 uniforms</figcaption></figure>
+        <figure><img src="assets/shot_03_meghvan_jungle.jpg" alt="Fighting on a rope bridge in the Meghvan jungle" loading="lazy" width="1280" height="720"><figcaption>Bridge of Rain, Act 3</figcaption></figure>
+        <figure><img src="assets/shot_04_sonagiri_night.jpg" alt="The Sonagiri desert depot at night" loading="lazy" width="1280" height="720"><figcaption>Sonagiri depot at night</figcaption></figure>
+        <figure><img src="assets/shot_05_sniper_ops.jpg" alt="Sniper Ops through the night-vision scope" loading="lazy" width="1280" height="720"><figcaption>Sniper Ops</figcaption></figure>
+        <figure><img src="assets/shot_06_vajra_prahar.jpg" alt="Operation Vajra Prahar in the snow" loading="lazy" width="1280" height="720"><figcaption>Operation Vajra Prahar</figcaption></figure>
+        <figure><img src="assets/shot_07_pune_airbase.jpg" alt="Defending the Pune Airbase with the squad" loading="lazy" width="1280" height="720"><figcaption>Pune Airbase</figcaption></figure>
+        <figure><img src="assets/shot_08_glacier_gate.jpg" alt="The squad at the Glacier Gate" loading="lazy" width="1280" height="720"><figcaption>The Glacier Gate</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="updates" aria-labelledby="updates-title" style="background:linear-gradient(180deg,var(--navy-deep),#0B1830)">
+    <div class="wrap">
+      <p class="eyebrow">What's new</p>
+      <h2 id="updates-title">Updates</h2>
+      <div class="cards">
+        <article class="card">
+          <div class="when">Version 1.4.1 · November 2026</div>
+          <h3>Balanced sound</h3>
+          <p>Gunfire and explosions no longer lean to the right speaker: sounds stay near the centre, clearer on
+            phones with a single speaker.</p>
+        </article>
+        <article class="card">
+          <div class="when">Version 1.4.0 · November 2026</div>
+          <h3>The Garud Armory and 19 uniforms</h3>
+          <p>Primary and secondary weapons, grenades, finishes, attachments and live previews; 19 military uniform
+            palettes; a cleaner map-focused dashboard with an optional player preview.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="about-title">
+    <div class="wrap about">
+      <p class="eyebrow">The studio</p>
+      <h2 id="about-title">About Lunaro</h2>
+      <p>Lunaro is a small independent studio making action games for phones. We care about three things:
+        controls that feel good on a touch screen, hand-drawn worlds worth exploring, and updates that keep coming.</p>
+      <p>SkyStrike Arena is a work of fiction: every place, unit and enemy in it is invented.</p>
+    </div>
+  </section>
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <a class="brand" href="#top"><img src="assets/lunaro_icon.png" alt="" width="36" height="36"><span>LUNARO</span></a>
+        <p style="margin:12px 0 0">Hand-drawn action games for Android.</p>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:gameslunaro@gmail.com">gameslunaro@gmail.com</a></li>
+          <li><a href="https://www.youtube.com/@lunarogames-f7i" rel="noopener">YouTube: Lunaro Games</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>SkyStrike Arena</h4>
+        <ul>
+          <li><a href="https://play.google.com/store/apps/details?id=com.lunaro.skystrikearena" rel="noopener">Google Play</a></li>
+          <li><a href="privacy/">Privacy policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="fine">© 2026 Lunaro. Google Play and the Google Play logo are trademarks of Google LLC.
+      This site sets no cookies and loads YouTube only when you press play.</p>
+  </div>
+</footer>
+
+<script>
+  // The trailer: the YouTube player (privacy-enhanced mode) is added only when it is pressed.
+  document.querySelectorAll(".trailer").forEach(function (box) {
+    var button = box.querySelector("button");
+    button.addEventListener("click", function () {
+      var frame = document.createElement("iframe");
+      frame.src = "https://www.youtube-nocookie.com/embed/" + box.dataset.video + "?autoplay=1&rel=0";
+      frame.title = "SkyStrike Arena: Act 3 trailer";
+      frame.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
+      frame.allowFullscreen = true;
+      box.replaceChildren(frame);
+    });
+  });
+</script>
+</body>
+</html>
